@@ -1,6 +1,10 @@
 import React, { useRef, useState } from 'react'
 
-export const TodoForm: React.FC = (props) => {
+interface ITodoFormProps {
+    onAdd(title: string): void
+}
+
+export const TodoForm: React.FC<ITodoFormProps> = (props) => {
 
     const ref = useRef<HTMLInputElement>(null)
 
@@ -13,7 +17,8 @@ export const TodoForm: React.FC = (props) => {
 
     const keyPressHandler = (event: React.KeyboardEvent) => {
         if (event.key === 'Enter') {
-            console.log(ref.current!.value);
+            props.onAdd(ref.current!.value);
+            ref.current!.value = ''
             // setTitle('')
         }
     }
